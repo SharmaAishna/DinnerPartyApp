@@ -8,10 +8,30 @@ namespace DinnerPartyApp
 {
     public class DinnerParty
     {
-        public int NumberOfPeople;
-        decimal CostOfDecorations = 0;
-        decimal CostOfBeveragesPerPerson;
         const int CostOfFoodPerPerson = 25;
+        private int numberOfPeople;
+        public int NumberOfPeople { 
+            get { return numberOfPeople; }
+            set {
+                numberOfPeople = value;
+               CalculateCostOfDecorations(fancyDecorations);
+            }
+        }
+
+        private bool fancyDecorations;
+
+       public decimal CostOfDecorations = 0;
+       public decimal CostOfBeveragesPerPerson;
+
+        public DinnerParty(int numberOfPeople, bool healthyOption, bool fancyDecorations)
+        {
+            this.NumberOfPeople = numberOfPeople;
+            this.fancyDecorations = fancyDecorations;
+            SetHealthyOption(healthyOption);
+            CalculateCostOfDecorations(fancyDecorations);
+
+        }
+      
         public void SetHealthyOption(bool healthOption)
         {
             if (healthOption)
@@ -39,15 +59,15 @@ namespace DinnerPartyApp
 
         public decimal CalculateCost(bool healthyOption)
         {
-            decimal TotalCost= CostOfDecorations + ((CostOfBeveragesPerPerson+
+            decimal totalCost= CostOfDecorations + ((CostOfBeveragesPerPerson+
             CostOfFoodPerPerson )* NumberOfPeople);
 
             if (healthyOption)
             {
-              return  TotalCost *= .95M;
+              return  totalCost *= .95M;
             }
             else
-            return TotalCost;
+            return totalCost;
         }
     }
 }
